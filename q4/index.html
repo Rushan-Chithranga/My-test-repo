@@ -1,0 +1,91 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEEF</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>User ID Card</h1>
+    <div>
+      <select name="gender" class="dropdown" id="gender_dropdown">
+        <option value="">Any</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button
+        class="button"
+        onclick="load_new_user(gender_dropdown.value)"
+        id="load_new_button"
+      >
+        Load New User
+      </button>
+    </div>
+
+    <br />
+    <div class="card">
+      <div class="card-content">
+        <img
+          id="profile_image"
+          alt="profile_image"
+          src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+          width="200"
+          height="200"
+        />
+        <div id="card">
+          <h3>Loading...</h3>
+        </div>
+
+        <div id="ssn"></div>
+      </div>
+    </div>
+    <br />
+
+    <script>
+      function load_new_user(gender) {
+        if (gender) {
+          query = `&gender=${gender}`;
+        } else {
+          query = "";
+        }
+
+        fetch(`https://randomuser.me/api/?nat=au${query}`)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            data = response.results[0];
+
+            console.log(data);
+
+            let card = document.querySelector("#card");
+            let profile_image = document.querySelector("#profile_image");
+            let ssn = document.querySelector("#ssn");
+
+            name = `<h3>${data.name.title}. ${data.name.first} ${data.name.last}<h3>`;
+            gender = `<p>${data.gender == "male" ? "Male" : "Female"}</p>`;
+            birthday = `<p>${data.dob.date.toString().slice(0, 10)}</p>`;
+            email = `<p>${data.email}</p>`;
+            address = `<p>${data.location.street.number} ${data.location.street.name}, ${data.location.city}, ${data.location.state}, ${data.location.country}, ${data.location.postcode}.</p>`;
+
+            card.innerHTML = name + gender + birthday + email + address;
+
+            profile_image.src = data.picture.large;
+
+            ssn.innerHTML = `<p>${data.id.value}</p>`;
+          })
+          .catch(function (err) {
+            let card = document.querySelector("#card");
+            card.innerHTML = `<h3>Something went wrong.</h3>`;
+            console.warn("Something went wrong.", err);
+          });
+      }
+
+      const load_new_button = document.querySelector("#load_new_button");
+
+      load_new_user();
+      let gender_dropdown = document.querySelector("#gender_dropdown");
+      load_new_button.addEventListener("click");
+    </script>
+  </body>
+</html>
