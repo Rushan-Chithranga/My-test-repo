@@ -6,7 +6,7 @@
 
 ## users table attributes
 
-1. user_id
+1. id
 2. first_name
 3. last_name
 4. email
