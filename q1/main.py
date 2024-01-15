@@ -1,6 +1,6 @@
 import json
 
-with open('./data2.json', 'r') as f:
+with open('./data.json', 'r') as f:
   dice = json.load(f)
 
 def transform(dice):
@@ -19,3 +19,4 @@ rotatedDice = transform(dice)
 
 with open("output.json", "w") as outfile:
     outfile.write(json.dumps(rotatedDice))
+    print("Output written to output.json")
