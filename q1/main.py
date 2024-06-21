@@ -1,6 +1,6 @@
 import json
 
-with open('./data.json', 'r') as f:
+with open('./data3.json', 'r') as f:
   dice = json.load(f)
 
 def transform(dice):
