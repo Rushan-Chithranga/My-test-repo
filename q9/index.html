@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill Calculation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bill Calculation</h1>
+      <table id="billTable">
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per Unit</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td><input type="text" id="item1" placeholder="Item 1" /></td>
+          <td>
+            <input
+              type="number"
+              id="quantity1"
+              oninput="calculateTotal()"
+              placeholder="0"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="price1"
+              oninput="calculateTotal()"
+              placeholder="0.00"
+            />
+          </td>
+          <td><span class="total">0.00</span></td>
+        </tr>
+        <tr>
+          <td><input type="text" id="item2" placeholder="Item 2" /></td>
+          <td>
+            <input
+              type="number"
+              id="quantity2"
+              oninput="calculateTotal()"
+              placeholder="0"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="price2"
+              oninput="calculateTotal()"
+              placeholder="0.00"
+            />
+          </td>
+          <td><span class="total">0.00</span></td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </table>
+      <div class="grand-total">
+        <h2>Grand Total: <span id="grandTotal">0.00</span></h2>
+      </div>
+      <button onclick="printBill()">Print Bill</button>
+    </div>
+    <div id="printSection" style="display:none"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
